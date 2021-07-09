@@ -1,0 +1,172 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/modal.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="/assets/js/bootstable.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+    <style>
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting:before,
+        table.dataTable thead .sorting_asc:after,
+        table.dataTable thead .sorting_asc:before,
+        table.dataTable thead .sorting_asc_disabled:after,
+        table.dataTable thead .sorting_asc_disabled:before,
+        table.dataTable thead .sorting_desc:after,
+        table.dataTable thead .sorting_desc:before,
+        table.dataTable thead .sorting_desc_disabled:after,
+        table.dataTable thead .sorting_desc_disabled:before {
+            bottom: .5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid no-padding">
+        <div class="row" style="margin-bottom:30">
+            <div class="col-sm-12 col-md-12 col-lg-12" style="position: fixed; z-index:1000; ">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="/">Address Managment System</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Help</a>
+                            </li>
+                        </ul>
+                        <span style="float: right; margin-top: 10px;">
+                            <form action="logout" method="get">
+                                <button type="submit" class="btn btn-light">Log Out</button>
+                            </form>
+                        </span>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+
+                    </li>
+                    <li>
+                        <a href="/modifyAddress">Modify Address </a>
+                    </li>
+                    <li>
+                        <a href="/modifyStreet">Modify Street</a>
+                    </li>
+                    <li>
+                        <a href="/modifyObjects">Modify Object</a>
+                    </li>
+                    <li>
+                        <a href="#" class="openBtn" onclick="openNav()" data-toggle="modal"
+                            data-target="#modal-fullscreen">Chat</a>
+                    </li>
+                    <li>
+                        <a href="#" class="openBtn" onclick="openNav1()" data-toggle="modal"
+                            data-target="#modal-fullscreen">Video Chat </a>
+
+                    </li>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <div id="nav1" class="overlay">
+                <a href="#" class="closeBtn" onclick="closeNav1()">&times;</a>
+                <!--style="background-color:#B5B8CC;
+                    border-right: 250px solid #EB441F;"-->
+                <div class="overlay__content">
+                    <div class="container" style="padding:40px 30px 40px 30px;
+                    background: linear-gradient(to right,  #dbdee8 0%, #dbdee8 70%,	#306844 21%,#306844 100%);
+                    border-radius:20px;">
+                        <div class="content-container" style=" color:black;font-family: sans-serif;
+                         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                            <div class="active-users-panel" id="active-user-container"
+                                style="background-color:white;border-color: rgb(163, 163, 163);">
+                                <div style="border-bottom:4px solid #306844;">
+                                    <span class="dot" style="background-color: #306844;"></span>
+                                    <span class="dot" style="background-color: #EB441F;"></span>
+                                    <span class="dot" style="background-color: #F8DDA4;"></span>
+                                    <h3 class="panel-title" style="display:inline-block;
+                                    border-bottom:white;">Active Users:</h3>
+                                </div>
+                            </div>
+                            <div class="video-chat-container" style="background-color:white;padding-bottom: 40px;">
+                                <h2 class="talk-info" id="talking-with-info">
+                                    Select active user on the left menu.
+                                </h2>
+                                <div class="video-container"
+                                    style="background-color:#EFEFF1;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                    <video autoplay class="remote-video" id="remote-video"
+                                        style="border-color: rgb(163, 163, 163);"></video>
+                                    <button id="hangupButton"><img src="/assets/img/endcall.png"></button>
+                                    <video autoplay muted class="local-video" id="local-video"></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nav" class="overlay">
+                <a href="#" class="closeBtn" onclick="closeNav()">&times;</a>
+                <div class="overlay__content" style="padding:2px;margin-left: 260px; 
+                color: black;font-family:sans-serif;
+                background-color: white;width: 60%;border-radius: 2px;">
+                    <div class="container">
+                        <div class="inbox" style="margin-top: 4px;">
+                            <div class="inbox__people" style=" float: left;margin-left: 0;border-right:1px solid rgb(163, 163, 163);
+                                border-top:1px solid rgb(163, 163, 163);border-left:1px solid rgb(163, 163, 163);
+                               
+                                margin-left: 4px;width: 30%;
+                                overflow-y: scroll;
+                                height:400px; 
+                                
+                                
+                                padding-right: 15px;background-color: rgb(237,237,237);">
+                                <h5>Active users</h5>
+                                <hr style="background-color:rgb(27,178,27);">
+                            </div>
+                            <div class="inbox__messages" style="width: auto;overflow-y: scroll;
+                            height: 400px;background-color: white;
+                            
+                            border-top:1px solid rgb(163, 163, 163);">
+                                <div class="messages__history" style="width:60%;height:auto;padding:8px;"></div>
+                                <div class="fallback"></div>
+                            </div>
+                        </div>
+
+                        <form class="message_form" style="background-color:white;">
+                            <input type="text" class="message_form__input" placeholder="Type a message"
+                                style="width: 91%;" />
+                            <button class="message_form__button" type="submit" style="background-color:rgb(27,178,27);
+                            border:1px solid black;border-radius:2px;color:white;">
+                                Send
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>

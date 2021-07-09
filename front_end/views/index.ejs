@@ -1,0 +1,160 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting:before,
+        table.dataTable thead .sorting_asc:after,
+        table.dataTable thead .sorting_asc:before,
+        table.dataTable thead .sorting_asc_disabled:after,
+        table.dataTable thead .sorting_asc_disabled:before,
+        table.dataTable thead .sorting_desc:after,
+        table.dataTable thead .sorting_desc:before,
+        table.dataTable thead .sorting_desc_disabled:after,
+        table.dataTable thead .sorting_desc_disabled:before {
+            bottom: .5em;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="container-fluid no-padding" style="min-height: 100%;">
+        <div class="row" style="margin-bottom:60">
+            <div class="col-sm-12 col-md-12 col-lg-12" style="position: fixed; z-index: 1000;">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="/">Address Managment System</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Modify Address</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Help</a>
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-ligh" data-toggle="modal" data-target="#exampleModal">
+                            Log In
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-10 col-lg-10 offset-sm-0 offset-md-1 offset-lg-1"
+                style="margin-bottom:10;padding-right:0;">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+            </div>
+            <div class="col-sm-12 col-md-10 col-lg-10 offset-md-1 offset-lg-1" style="padding-right:0;">
+                <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                    <thead class="thead-dark" style="background-color: #343a40;">
+                        <tr>
+                            <th class="th-sm">Region
+                            </th>
+                            <th class="th-sm">Municipality
+                            </th>
+                            <th class="th-sm">Neighborhood
+                            </th>
+                            <th class="th-sm">Street
+                            </th>
+                            <th class="th-sm">Building
+                            </th>
+                            <th class="th-sm">Latitude
+                            </th>
+                            <th class="th-sm">Longitude
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <% for (var i = 0; i < addresses.length; i++) { %>
+                        <tr>
+                            <td><%= addresses[i].region_name %></td>
+                            <td><%= addresses[i].municipality_name %></td>
+                            <td><%= addresses[i].neighborhood %></td>
+                            <td><%= addresses[i].street_country %></td>
+                            <td><%= addresses[i].object_id %></td>
+                            <td><%= addresses[i].latitude %></td>
+                            <td><%= addresses[i].longitude %></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid no-padding; " style="width:98%;">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 p-0"
+                style="background-color:#343a40;height:70px;color:white;display:flex;flex-direction: row;justify-content: center;align-items: center;">
+                <p>© Address Managment System 2020</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Log In</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="auth" method="post">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12" style="margin-bottom:20px">
+                                    <p style="margin-bottom:5px">Email or Username</p>
+                                    <input name="username" required class="form-control" id="myInput" type="text"
+                                        placeholder="Username or Email">
+                                </div>
+                                <div class="col-sm-12" style="margin-bottom:20px">
+                                    <p style="margin-bottom:5px">Password</p>
+                                    <input name="password" required class="form-control" id="myInput" type="password">
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-dark btn-lg"
+                                        style="width:100%;background-color: #343a40;">Log In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

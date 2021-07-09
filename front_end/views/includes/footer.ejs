@@ -1,0 +1,33 @@
+</div>
+
+</div>
+<div class="container-fluid no-padding; " style="width:97.8%;">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 p-0"
+            style="background-color:#343a40;height:70px;color:white;display:flex;flex-direction: row;justify-content: center;align-items: center;">
+            <p>© Address Managment System 2020</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+<script src="/assets/js/client.js"></script>
+<script src="/assets/js/employee.js"></script>
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('#makeEditable').SetEditable({ $addButton: $('#but_add') });
+    });
+</script>
+
+</html>

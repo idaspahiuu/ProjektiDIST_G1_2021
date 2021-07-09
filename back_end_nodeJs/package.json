@@ -1,0 +1,28 @@
+{
+  "name": "ssh",
+  "version": "1.0.0",
+  "description": "Projekti Sisteme te shperndara",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiranMustafa/sisteme-te-shperndara.git"
+  },
+  "author": "Miran Mustafa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MiranMustafa/sisteme-te-shperndara/issues"
+  },
+  "homepage": "https://github.com/MiranMustafa/sisteme-te-shperndara#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "pg": "^8.2.1",
+    "socket.io": "^2.3.0",
+    "webpack": "^4.43.0"
+  }
+}
